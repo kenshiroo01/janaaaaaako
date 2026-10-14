@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ♡</title>
+<style>
+:root {
+  --sage: #aab99a;
+  --sage-dark: #526b4e;
+  --cream: #fff9e9;
+  --paper: #f7edcf;
+  --pink: #d88e9e;
+  --ink: #394b37;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; min-height: 100vh; color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  background:
+    radial-gradient(ellipse at 15% 15%, #ffffffa6 0 3%, transparent 25%),
+    radial-gradient(ellipse at 90% 80%, #dca8a855 0 2%, transparent 28%),
+    linear-gradient(135deg, #f7e5df, #f9f2df 52%, #e4eadb);
+  display: flex; align-items: center; justify-content: center;
+  padding: 26px 14px; overflow-x: hidden;
+}
+body::before, body::after {
+  content: "✿  ❧  ♡"; position: fixed; color: #a6b39288;
+  font-size: clamp(30px, 6vw, 65px); pointer-events: none;
+  letter-spacing: 12px; z-index: 0;
+}
+body::before { top: 5%; left: -8px; transform: rotate(-18deg); }
+body::after { right: -10px; bottom: 4%; transform: rotate(18deg); }
+.page {
+  width: min(100%, 960px); position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  align-items: center;
+}
+.intro { padding: 18px 10px; text-align: center; }
+.eyebrow { text-transform: uppercase; letter-spacing: 3px; font: 11px Arial, sans-serif; color: #7a8a6b; }
+h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.08; margin: 14px 0 12px; font-weight: normal; }
+.intro p { color: #806c66; line-height: 1.7; }
+.heart-button {
+  width: 78px; height: 78px; border: 0; border-radius: 50%;
+  background: #e7a8b4; color: white; font-size: 36px; cursor: pointer;
+  box-shadow: 0 8px 24px #b56c7b4d, inset 0 2px 3px #ffffff8c;
+  animation: heartbeat 1.4s infinite; margin-top: 14px;
+}
+.heart-button:hover { filter: brightness(1.05); }
+@keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.09); } }
+.hint { font-size: 13px; }
+.player-card {
+  background: #fff9e9d9; border: 1px solid #d9d5b8; border-radius: 16px;
+  padding: 20px; box-shadow: 0 18px 50px #685c3b1c;
+}
+.card-heading { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; }
+.card-heading h2 { font-size: 19px; font-weight: normal; margin: 0; }
+.tiny-label { font: 10px Arial,sans-serif; text-transform: uppercase; letter-spacing: 1.5px; color: #718266; }
+.cassette {
+  background: linear-gradient(145deg, #c6d0b4, #aab99a);
+  border: 2px solid #8b9a7c; border-radius: 16px; padding: 15px 14px 13px;
+  box-shadow: inset 0 2px 5px #ffffffa6, 0 5px 0 #879477;
+  position: relative; margin: 10px 0 18px;
+}
+.cassette::before, .cassette::after {
+  content: "✿"; position: absolute; color: #6e865f; font-size: 17px; top: 10px;
+}
+.cassette::before { left: 12px; } .cassette::after { right: 12px; }
+.cassette-title {
+  text-align:center; background:#f9f3dc; border:1px solid #b7b99a;
+  border-radius: 30px; width: fit-content; max-width: 75%; margin: 0 auto 12px;
+  padding: 4px 16px; font-size: 13px;
+}
+.tape-window {
+  display:flex; justify-content:space-around; align-items:center; gap:10px;
+  background:#59604f; border:5px solid #e1dfc9; border-radius:12px;
+  padding: 13px 10px; max-width: 300px; margin: auto;
+}
+.reel {
+  width: 48px; height:48px; border-radius:50%; background:#f2edd8;
+  border:5px dotted #a8aa91; box-shadow: inset 0 0 0 5px #d4d1b8;
+  display:grid; place-items:center; flex-shrink:0;
+}
+.reel::after { content:""; width:12px; height:12px; border-radius:50%; background:#68715e; }
+.tape-strip { width: 38px; height: 35px; background:repeating-linear-gradient(90deg,#3e4038 0 7px,#656657 7px 12px); border-radius:4px; }
+.cassette-bottom {
+  display:flex; justify-content:center; gap:26px; align-items:center; margin-top:12px;
+}
+.screw { width:10px;height:10px;border-radius:50%;background:#d5d1b7;border:2px solid #89917b; }
+.cassette-button { width:12px;height:12px;border-radius:4px;background:#d88e9e;border:2px solid #718064; }
+.track-now {
+  background:#f5e8bf; border-left:3px solid #d6b96f; padding:12px 14px; margin: 0 0 14px;
+}
+.track-now small { display:block; font:10px Arial,sans-serif; letter-spacing:1.4px; color:#7e8469; margin-bottom:5px; }
+#nowTitle { font-size:17px; }
+#nowArtist { color:#8b7969; font-size:13px; margin-top:4px; }
+.controls { display:flex; gap:9px; align-items:center; margin: 12px 0 16px; }
+.control-btn {
+  border:0; background:var(--sage-dark); color:white; border-radius:30px;
+  padding:9px 15px; cursor:pointer; font:12px Arial,sans-serif;
+}
+.control-btn.secondary { background:#e9e5d3; color:#506448; }
+#progress { width:100%; accent-color:#617b56; cursor:pointer; }
+.time-row { display:flex; justify-content:space-between; font:10px Arial,sans-serif; color:#827c69; }
+.playlist-title { font-size:16px; font-weight:normal; margin:18px 0 8px; }
+.track {
+  display:flex; align-items:center; gap:10px; width:100%; border:0;
+  background:transparent; border-top:1px solid #e7dfc8; padding:11px 5px;
+  color:var(--ink); text-align:left; cursor:pointer; font-family:inherit;
+}
+.track:hover, .track.active { background:#edf0e4; }
+.track-num { font:11px Arial,sans-serif; color:#8b987c; width:20px; }
+.track-info { flex:1; min-width:0; }
+.track-name { display:block; font-size:14px; }
+.track-artist { display:block; font-size:11px; color:#8a7a6e; margin-top:3px; }
+.track-play { color:#58734f; font-size:15px; }
+.note { font-size:11px; line-height:1.5; color:#8b7b6e; margin:12px 0 0; }
+.overlay {
+  display:none; position:fixed; inset:0; z-index:10; padding:18px;
+  align-items:center; justify-content:center; background:#30362edb;
+}
+.overlay.show { display:flex; }
+.surprise {
+  width:min(100%,460px); max-height:90vh; overflow:auto; position:relative;
+  background:var(--cream); border:1px solid #e5d8b8; border-radius:8px;
+  padding:34px 28px; box-shadow:0 25px 80px #0004; animation:pop .35s ease;
+}
+@keyframes pop { from {opacity:0;transform:translateY(15px) scale(.97)} to {opacity:1;transform:none} }
+.close {
+  position:absolute; top:9px; right:13px; border:0; background:transparent;
+  color:#7d7665; font-size:27px; cursor:pointer;
+}
+.surprise .stamp { color:#b67a86; letter-spacing:3px; font:10px Arial,sans-serif; text-transform:uppercase; }
+.surprise h2 { font-size:29px; font-weight:normal; color:#b56f80; margin:12px 0; }
+.surprise p { font-size:16px; line-height:1.85; white-space:pre-line; }
+.signature { text-align:right; color:#8a7969; font-style:italic; }
+.float-heart { position:fixed; z-index:12; bottom:-30px; pointer-events:none; animation:floatUp 4s linear forwards; }
+@keyframes floatUp { to { transform:translateY(-110vh) rotate(20deg); opacity:0; } }
+@media (max-width:700px) {
+  body { align-items:flex-start; }
+  .page { grid-template-columns:1fr; gap:8px; max-width:480px; }
+  .intro { padding:8px 8px 0; }
+  h1 { margin-top:8px; }
+  .heart-button { width:66px;height:66px;font-size:30px; }
+  .player-card { padding:16px; }
+}
+
+
+/* Opening envelope screen */
+.opening-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #fce4ec, #fff9e9, #e4eadb);
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+  overflow: hidden;
+}
+
+.opening-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.opening-content {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 420px);
+}
+
+.opening-content h2 {
+  font-weight: normal;
+  font-size: clamp(28px, 6vw, 40px);
+  color: #b56f80;
+  margin-bottom: 10px;
+}
+
+.opening-content p {
+  color: #806c66;
+  line-height: 1.7;
+}
+
+.envelope {
+  position: relative;
+  width: 250px;
+  height: 160px;
+  max-width: 80vw;
+  margin: 45px auto 30px;
+  background: #e9a9b8;
+  border-radius: 5px;
+  box-shadow: 0 12px 28px #b9798940;
+  cursor: pointer;
+  perspective: 800px;
+}
+
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: #d987a0;
+  border-radius: 5px;
+}
+
+.envelope-letter {
+  position: absolute;
+  left: 8%;
+  width: 84%;
+  height: 85%;
+  top: 5%;
+  padding: 20px 8px;
+  background: #fff9e9;
+  color: #806c66;
+  font-size: 15px;
+  line-height: 1.6;
+  transition: transform 0.8s ease;
+  z-index: 2;
+}
+
+.envelope-flap {
+  position: absolute;
+  inset: 0;
+  background: #d987a0;
+  clip-path: polygon(0 0, 100% 0, 50% 58%);
+  transform-origin: top;
+  transition: transform 0.7s ease;
+  z-index: 4;
+}
+
+.envelope-front {
+  position: absolute;
+  inset: 0;
+  background: #e9a9b8;
+  clip-path: polygon(0 100%, 0 0, 50% 58%, 100% 0, 100% 100%);
+  z-index: 3;
+}
+
+.envelope-heart {
+  position: absolute;
+  z-index: 5;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: white;
+}
+
+.envelope.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.envelope.open .envelope-letter {
+  transform: translateY(-90px);
+}
+
+.opening-bouquet {
+  display: none;
+  font-size: clamp(30px, 8vw, 43px);
+  margin: 18px 0;
+}
+
+.opening-bouquet.show {
+  display: block;
+  animation: bouquetBloom 1s ease both;
+}
+
+.opening-bouquet span {
+  display: inline-block;
+  animation: flowerSway 1.5s ease-in-out infinite alternate;
+}
+
+.opening-bouquet span:nth-child(even) {
+  animation-delay: 0.3s;
+}
+
+.opening-button {
+  display: none;
+  border: 0;
+  background: #d987a0;
+  color: white;
+  border-radius: 30px;
+  padding: 13px 25px;
+  margin-top: 12px;
+  font: 14px Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 5px 15px #b9798940;
+}
+
+.opening-button.show {
+  display: inline-block;
+  animation: bouquetBloom 0.6s ease both;
+}
+
+.opening-button:hover {
+  background: #c4778d;
+}
+
+.opening-flower {
+  position: absolute;
+  pointer-events: none;
+  animation: openingFloat linear infinite;
+  opacity: 0.75;
+}
+
+@keyframes bouquetBloom {
+  from { opacity: 0; transform: scale(0.3); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes flowerSway {
+  from { transform: rotate(-10deg) translateY(0); }
+  to { transform: rotate(10deg) translateY(-5px); }
+}
+
+@keyframes openingFloat {
+  from { transform: translateY(110vh) rotate(0deg); }
+  to { transform: translateY(-15vh) rotate(360deg); }
+}
+
+</style>
+</head>
+<body>
+  
+<div class="opening-screen" id="openingScreen">
+  <div class="opening-content">
+    <div class="eyebrow">made with all my love ♡</div>
+
+    <h2>A Little Surprise<br>For You, Babyyyyy 💗</h2>
+
+    <p>A little envelope, a little bouquet,<br>
+    and a whole lot of love for you.</p>
+
+    <div class="envelope" id="openingEnvelope"
+         role="button" tabindex="0"
+         aria-label="Open your love letter">
+      <div class="envelope-back"></div>
+
+      <div class="envelope-letter">
+        A little love letter<br>
+        made just for you 💌
+      </div>
+
+      <div class="envelope-flap"></div>
+      <div class="envelope-front"></div>
+      <div class="envelope-heart">♥</div>
+    </div>
+
+    <p id="openingHint">Tap the envelope to open it 💌</p>
+
+    <div class="opening-bouquet" id="openingBouquet">
+      <span>🌷</span>
+      <span>🌸</span>
+      <span>🌹</span>
+      <span>🌼</span>
+      <span>🌷</span>
+    </div>
+
+    <p id="openingMessage" hidden>
+      These flowers are for you, my love. 🌷❤️
+    </p>
+
+    <button class="opening-button" id="enterWebsite">
+      Open Your Surprise 💕
+    </button>
+  </div>
+</div>
+
+<main class="page">
+  
+  <section class="intro">
+    <div class="eyebrow">a little something, just for you</div>
+    <h1>For My<br>Love <span style="color:#d88e9e">♡</span></h1>
+    <p>I made you a tiny corner of the world<br>filled with songs and love.</p>
+    <button class="heart-button" id="heartButton" aria-label="Reveal your surprise">♥</button>
+    <p class="hint">Tap the heart for your little surprise 💌</p>
+  </section>
+
+  <section class="player-card" aria-label="Vintage cassette music player">
+    <div class="card-heading">
+      <h2>Mixtape for you</h2>
+      <span class="tiny-label">SIDE A ♡</span>
+    </div>
+
+    <div class="cassette" aria-label="Illustrated vintage cassette">
+      <div class="cassette-title">Songs for you</div>
+      <div class="tape-window">
+        <div class="reel"></div><div class="tape-strip"></div><div class="reel"></div>
+      </div>
+      <div class="cassette-bottom">
+        <span class="screw"></span><span class="cassette-button"></span>
+        <span class="screw"></span><span class="cassette-button"></span><span class="screw"></span>
+      </div>
+    </div>
+
+    <div class="track-now">
+      <small>NOW PLAYING</small>
+      <div id="nowTitle">Choose a song ♡</div>
+      <div id="nowArtist">Your little love playlist</div>
+    </div>
+
+    <audio id="audio" preload="metadata"></audio>
+    <div class="controls">
+      <button class="control-btn secondary" id="prevBtn" aria-label="Previous song">|◀</button>
+      <button class="control-btn" id="playBtn">▶ Play</button>
+      <button class="control-btn secondary" id="nextBtn" aria-label="Next song">▶|</button>
+      <span style="flex:1"></span>
+      <label for="volume" class="tiny-label">VOL</label>
+      <input id="volume" type="range" min="0" max="1" step="0.05" value="0.8" style="width:65px;accent-color:#617b56">
+    </div>
+    <input id="progress" type="range" min="0" max="100" value="0" aria-label="Song progress">
+    <div class="time-row"><span id="elapsed">0:00</span><span id="duration">0:00</span></div>
+
+    <h3 class="playlist-title">♡ The little playlist</h3>
+    <div id="playlist"></div>
+    <p class="note">Add your own MP3 files to this folder and update the song filenames in the code. Songs are played after you press Play.</p>
+  </section>
+</main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="surpriseTitle">
+  <article class="surprise">
+    <button class="close" id="closeBtn" aria-label="Close surprise">×</button>
+    <div class="stamp">opened with love • just for you</div>
+    <h2 id="surpriseTitle">Surprise, bebiii! ♡</h2>
+    <p id="surpriseMessage">Heyyy, my love. ❤️
+
+If you found this little surprise, I hope it makes you smile.
+
+Helloooo myloveee walangggggg occasion just want to appreciate you, my love. 
+
+Out of all the songs in the world, you will always be my favorite melody. 
+Itong mga songs na mapiplay mo everytime na nagpiplay yan sa playlist ko ikaw naalala ko mahal. 
+Gusto ko lang sabihin sa'yo kung gaano ako kasaya at ka-thankful na 
+dumating ka sa buhay ko. Sa dami ng taong puwede kong makilala sa mundong ito, 
+ikaw yung taong pinili ng puso ko, at araw-araw akong nagpapasalamat kasi 
+ikaw yung naging parte ng buhay ko. 
+
+Minsan nga, kahit pagod ako o marami akong iniisip or feel ko maiiyak ako tumatakbo lang ako sayo tapos magiging okay na lahat.
+Baby, gusto kong malaman mo na hindi lang kita mahal dahil sa mga masasayang araw 
+natin, kundi pati sa mga araw na hindi ka okay, sa mga panahong pagod ka, 
+malungkot ka, marami kang iniisip, o pakiramdam mo ay hindi mo na kaya. 
+Gusto kong nandito ako para sa'yo, hindi lang kapag madali ang lahat, 
+kundi lalo na kapag mabigat ang mga pinagdadaanan mo.
+Hindi mo kailangang itago yung lungkot mo o magpanggap na 
+okay ka kung hindi naman talaga. You can be yourself with me, love. 
+Puwede kang umiyak, magkuwento, maglabas ng sama ng loob, o kahit 
+manahimik lang habang kasama mo ako. Hindi ko man palaging alam kung 
+ano ang tamang sasabihin para gumaan ang pakiramdam mo, 
+susubukan ko pa ring intindihin ka at pakinggan ka. 
+
+ May mga araw na baka hindi tayo magkaintindihan, may mga pagkakataong pareho tayong mapagod, at may mga panahon na hindi natin agad maintindihan ang nararamdaman ng isa't isa. 
+ Pero sana sa mga ganoong pagkakataon, piliin pa rin nating mag-usap nang maayos kasi ayokong
+ umabot tayo sa point na maghiwalay tayo kasi hindi na natin naiintindihan yung isat isa.
+
+ Ayokong masira tayo dahil lang sa pride, tampuhan, o mga bagay na kaya naman 
+ nating pag-usapan. Kapag may nagawa akong mali, sana sabihin mo sa akin para 
+ matuto ako. Kapag may nasabi akong nakasakit sa'yo, gusto kong malaman para 
+ maitama ko at mas maging maingat ako sa mga susunod na pagkakataon. Hindi ko 
+ ipinapangakong magiging perpekto akong boyfriend, pero ipinapangako kong 
+ patuloy akong matututo kung paano ka mas mamahali at aalagaan.
+
+ Thank you, bebiii, sa lahat ng ginagawa mo para sa akin. Thank you sa oras mo, 
+ sa effort mo, sa patience mo, sa pag-intindi mo sa akin, at sa pagmamahal na 
+ ibinibigay mo. Salamat dahil pinaparamdam mo sa akin na may isang taong espesyal 
+ na kasama ko sa buhay. Salamat sa mga ngiti, tawanan, kwentuhan, lambing, at sa 
+ lahat ng memories na unti-unti nating binubuo. 
+
+ Gusto kong lagi mong tandaan na sapat ka, mahal. Hindi mo kailangang baguhin ang buong pagkatao mo para lang maging karapat-dapat sa pagmamahal ko. Hindi mo kailangang ikumpara ang sarili mo sa ibang babae o isipin na may kailangan kang patunayan para piliin kita. I love you for who you are, kasama ang mga bagay na gusto 
+ mo sa sarili mo at pati yung mga bagay na nahihirapan ka pang tanggapin.
+
+ Gusto kong maramdaman mong mahal kita hindi lang kapag namimiss kita o kapag gusto kitang lambingin, kundi pati sa mga ordinaryong araw na walang espesyal na nangyayari. Sana palagi nating maalala na magka-team tayo, hindi magkalaban. Kapag may problema, harapin natin nang magkasama. Kapag may pangarap ka, susuportahan kita. 
+
+Mahal na mahal kita, baby ko. ❤️ Kung may isang bagay akong gustong ipaalala sa'yo araw-araw, iyon ay kung gaano ka kahalaga sa akin.
+
+Thank you for being my love, my favorite person, and one of the most beautiful parts of my life. Hindi ko man kayang ibigay sa'yo ang lahat ng bagay na gusto mo agad-agad, gusto kong ibigay ang kaya kong ibigay nang may totoong pagmamahal, respeto, at effort
+Thank you for being my favorite person. If I could make a playlist out of every reason I love you, it would never end.
+
+I love you so much, babyyyy. Today, tomorrow, and all the days after. 💗</p>
+    <p class="signature">Always yours, with love ♡</p>
+    <button class="control-btn" id="backToSongs">Back to our songs ♪</button>
+  </article>
+</div>
+
+<script>
+
+const songs = [
+  { title: "A little bit", artist: "Earl Agustin", src: "music/song1.mp3" },
+  { title: "Ito Lamang", artist: "Project Romero", src: "music/song2.mp3" },
+  { title: "Pinipili", artist: "MATEO", src:"music/song3.mp3" },
+  { title: "Celeste", artist: "Tothapi", src: "music/song4.mp3" }
+];
+
+const audio = document.getElementById("audio");
+const playlist = document.getElementById("playlist");
+const playBtn = document.getElementById("playBtn");
+const progress = document.getElementById("progress");
+const overlay = document.getElementById("overlay");
+let currentIndex = 0;
+
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) return "0:00";
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+  return `${mins}:${secs}`;
+}
+
+function renderPlaylist() {
+  playlist.innerHTML = "";
+  songs.forEach((song, index) => {
+    const button = document.createElement("button");
+    button.className = "track" + (index === currentIndex ? " active" : "");
+    button.type = "button";
+    button.innerHTML = `
+      <span class="track-num">${String(index + 1).padStart(2, "0")}</span>
+      <span class="track-info">
+        <span class="track-name"></span>
+        <span class="track-artist"></span>
+      </span>
+      <span class="track-play">${index === currentIndex && !audio.paused ? "Ⅱ" : "▶"}</span>`;
+    button.querySelector(".track-name").textContent = song.title;
+    button.querySelector(".track-artist").textContent = song.artist;
+    button.addEventListener("click", () => {
+      if (index === currentIndex && !audio.paused) {
+        audio.pause();
+      } else {
+        loadSong(index);
+        playSong();
+      }
+    });
+    playlist.appendChild(button);
+  });
+}
+
+function loadSong(index) {
+  currentIndex = (index + songs.length) % songs.length;
+  const song = songs[currentIndex];
+  audio.src = song.src;
+  document.getElementById("nowTitle").textContent = song.title;
+  document.getElementById("nowArtist").textContent = song.artist;
+  progress.value = 0;
+  document.getElementById("elapsed").textContent = "0:00";
+  document.getElementById("duration").textContent = "0:00";
+  renderPlaylist();
+}
+
+async function playSong() {
+  try {
+    await audio.play();
+  } catch (error) {
+    document.getElementById("nowArtist").textContent =
+      "Add the MP3 file for this song, then press Play ♡";
+  }
+}
+
+playBtn.addEventListener("click", () => {
+  if (audio.paused) {
+    if (!audio.src) loadSong(currentIndex);
+    playSong();
+  } else {
+    audio.pause();
+  }
+});
+document.getElementById("prevBtn").addEventListener("click", () => {
+  loadSong(currentIndex - 1);
+  playSong();
+});
+document.getElementById("nextBtn").addEventListener("click", () => {
+  loadSong(currentIndex + 1);
+  playSong();
+});
+audio.addEventListener("play", () => { playBtn.textContent = "Ⅱ Pause"; renderPlaylist(); });
+audio.addEventListener("pause", () => { playBtn.textContent = "▶ Play"; renderPlaylist(); });
+audio.addEventListener("ended", () => { loadSong(currentIndex + 1); playSong(); });
+audio.addEventListener("loadedmetadata", () => {
+  document.getElementById("duration").textContent = formatTime(audio.duration);
+});
+audio.addEventListener("timeupdate", () => {
+  document.getElementById("elapsed").textContent = formatTime(audio.currentTime);
+  if (Number.isFinite(audio.duration) && audio.duration > 0) {
+    progress.value = (audio.currentTime / audio.duration) * 100;
+  }
+});
+progress.addEventListener("input", () => {
+  if (Number.isFinite(audio.duration) && audio.duration > 0) {
+    audio.currentTime = (Number(progress.value) / 100) * audio.duration;
+  }
+});
+document.getElementById("volume").addEventListener("input", event => {
+  audio.volume = Number(event.target.value);
+});
+audio.volume = 0.8;
+
+function makeHearts() {
+  for (let i = 0; i < 16; i++) {
+    const heart = document.createElement("span");
+    heart.className = "float-heart";
+    heart.textContent = ["♥", "♡", "💗", "💕"][Math.floor(Math.random() * 4)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 20) + "px";
+    heart.style.color = ["#d88e9e", "#b1bd9e", "#e7a8b4"][Math.floor(Math.random() * 3)];
+    heart.style.animationDelay = (Math.random() * 1.4) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5200);
+  }
+}
+
+document.getElementById("heartButton").addEventListener("click", () => {
+  overlay.classList.add("show");
+  makeHearts();
+});
+function closeSurprise() { overlay.classList.remove("show"); }
+document.getElementById("closeBtn").addEventListener("click", closeSurprise);
+document.getElementById("backToSongs").addEventListener("click", closeSurprise);
+overlay.addEventListener("click", event => {
+  if (event.target === overlay) closeSurprise();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeSurprise();
+});
+
+
+const openingScreen = document.getElementById("openingScreen");
+const openingEnvelope = document.getElementById("openingEnvelope");
+const openingBouquet = document.getElementById("openingBouquet");
+const openingHint = document.getElementById("openingHint");
+const openingMessage = document.getElementById("openingMessage");
+const enterWebsite = document.getElementById("enterWebsite");
+
+let envelopeOpened = false;
+
+function openLoveEnvelope() {
+  if (envelopeOpened) return;
+
+  envelopeOpened = true;
+  openingEnvelope.classList.add("open");
+  openingHint.textContent = "A little bouquet, just for you... 🌸";
+
+  setTimeout(() => {
+    openingBouquet.classList.add("show");
+    openingMessage.hidden = false;
+    enterWebsite.classList.add("show");
+    openingHint.textContent = "Surprise, my love! 💗";
+  }, 700);
+}
+
+openingEnvelope.addEventListener("click", openLoveEnvelope);
+
+openingEnvelope.addEventListener("keydown", event => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openLoveEnvelope();
+  }
+});
+
+enterWebsite.addEventListener("click", () => {
+  openingScreen.classList.add("hidden");
+});
+
+const openingFlowers = ["🌸", "🌷", "💗", "🌼", "✿"];
+
+for (let i = 0; i < 18; i++) {
+  const flower = document.createElement("span");
+  flower.className = "opening-flower";
+  flower.textContent =
+    openingFlowers[Math.floor(Math.random() * openingFlowers.length)];
+
+  flower.style.left = Math.random() * 100 + "vw";
+  flower.style.fontSize = (16 + Math.random() * 17) + "px";
+  flower.style.animationDuration = (7 + Math.random() * 8) + "s";
+  flower.style.animationDelay = (-Math.random() * 12) + "s";
+
+  openingScreen.appendChild(flower);
+}
+
+loadSong(0);
+</script>
+</body>
+</html>
